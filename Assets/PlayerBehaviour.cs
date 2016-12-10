@@ -37,6 +37,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Die()
     {
-
+        Destroy(this.gameObject);
     }
 }
