@@ -42,9 +42,12 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
         {
             SpawnPlantPot();
             hitCountdown = DELAY_HIT;
+            GetComponent<Animator>().SetTrigger("StopMeowing");
         }
         else
         {
+            if (hitCountdown <= 1.5)
+                GetComponent<Animator>().SetTrigger("Meowing");
             hitCountdown -= Time.deltaTime;
         }
     }
