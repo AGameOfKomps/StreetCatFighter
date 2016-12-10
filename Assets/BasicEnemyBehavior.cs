@@ -2,23 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemyBehavior : MonoBehaviour {
+public class BasicEnemyBehavior : MonoBehaviour
+{
 
-    public int Speed;
+    public float Speed;
     public int Health;
+    public int Damage;
     public GameObject Player;
-    
+
     // Use this for initialization
-	void Start () {
-        Speed = 1;
+    void Start()
+    {
+        Speed = 0.1f;
         Health = 100;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        Damage = 10;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (IsOnTarget())
         {
-            ReceiveHit(0);
             if (Health > 0)
             {
                 DeliverHit();
@@ -32,7 +36,7 @@ public class BasicEnemyBehavior : MonoBehaviour {
         {
             Move();
         }
-	}
+    }
 
     bool IsOnTarget()
     {
@@ -48,16 +52,19 @@ public class BasicEnemyBehavior : MonoBehaviour {
 
     void DeliverHit()
     {
-
+        // deliver hit animation
+        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
     }
 
-    public void ReceiveHit(int HitPoints)
+    public void ReceiveHit(bool attackType)
     {
-        Health -= HitPoints;
+        // receive hit animation
+        Health -= attackType ? 20 : 40;
     }
 
     void Die()
     {
-
+        // death animation
+        Destroy(this);
     }
 }

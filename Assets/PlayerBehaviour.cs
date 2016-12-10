@@ -26,7 +26,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    void RecieveHit(int damage)
+    public void ReceiveHit(int damage)
     {
         Energy -= damage;
 
