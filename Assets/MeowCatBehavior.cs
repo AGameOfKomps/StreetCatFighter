@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeowCatBehavior : MonoBehaviour {
+public class MeowCatBehavior : MonoBehaviour, ICatDamageable
+{
 
     public const float Speed = 0.2f;
     public const float Damage = 10;
@@ -19,6 +20,7 @@ public class MeowCatBehavior : MonoBehaviour {
     void Start () {
         Energy = 100;
         HitCountdown = DelayHit;
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
@@ -36,7 +38,7 @@ public class MeowCatBehavior : MonoBehaviour {
     bool IsOnTarget()
     {
         Vector2 distance = Player.transform.position - transform.position;
-        return distance.Equals(distance.normalized * DeadSpace);
+        return distance == distance.normalized * DeadSpace;
     }
 
     void Move()

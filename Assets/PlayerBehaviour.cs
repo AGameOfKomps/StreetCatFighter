@@ -30,12 +30,11 @@ public class PlayerBehaviour : MonoBehaviour
         Heavy
     }
 
-    public GameObject WeakAttackCollider;
-    public GameObject HeavyAttackCollider;
+    public GameObject WeakAttackHitBox;
+    public GameObject HeavyAttackHitBox;
 
     void Start()
     {
-
     }
     
     void Update()
@@ -53,7 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
         else if (H < 0)
             Direction = PlayerDirection.Left;
 
-        if (!A || !B)
+        if (!A && !B)
             transform.Translate(new Vector2(H, V) * Speed);
 
         if (J)
@@ -68,32 +67,36 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void WeakAttack()
     {
-        WeakAttackCollider.SetActive(true);
+        WeakAttackHitBox.SetActive(true);
 
         // Start animation
 
+        var x = transform.position.x;
+        var y = transform.position.y;
         if (Direction == PlayerDirection.Right)
-            WeakAttackCollider.transform.position = new Vector2(-0.5f, 0);
+            WeakAttackHitBox.transform.position = new Vector2(x + 0.5f, y);
         else if (Direction == PlayerDirection.Left)
-            WeakAttackCollider.transform.position = new Vector2(0.5f, 0);
+            WeakAttackHitBox.transform.position = new Vector2(x - 0.5f, y);
 
         // Do damage
-        WeakAttackCollider.SetActive(false);
+        //WeakAttackHitBox.SetActive(false);
     }
 
     private void HeavyAttack()
     {
-        WeakAttackCollider.SetActive(true);
+        WeakAttackHitBox.SetActive(true);
 
         // Start animation
 
+        var x = transform.position.x;
+        var y = transform.position.y;
         if (Direction == PlayerDirection.Right)
-            WeakAttackCollider.transform.position = new Vector2(-0.5f, 0);
+            WeakAttackHitBox.transform.position = new Vector2(x + 0.5f, y);
         else if (Direction == PlayerDirection.Left)
-            WeakAttackCollider.transform.position = new Vector2(0.5f, 0);
+            WeakAttackHitBox.transform.position = new Vector2(x - 0.5f, y);
 
         // Do damage
-        WeakAttackCollider.SetActive(false);
+        //WeakAttackHitBox.SetActive(false);
     }
 
     public void ReceiveHit(float damage)
