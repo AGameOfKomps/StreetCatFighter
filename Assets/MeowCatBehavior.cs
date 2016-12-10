@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeowCatBehavior : MonoBehaviour {
+public class MeowCatBehavior : MonoBehaviour, ICatDamageable
+{
 
     public const float Speed = 0.2f;
     public const float Damage = 10;
-    public const float DelayHit = 0.1f;
+    public const float DelayHit = 3;
     public const float DeadSpace = 3;
 
     public GameObject Player;
     public GameObject PlantPot;
 
-    private float Energy;
-    private float HitCountdown;
+    private float energy;
+    private float hitCountdown;
 
     // Use this for initialization
     void Start () {
-        Energy = 100;
-        HitCountdown = DelayHit;
+        energy = 100;
+        hitCountdown = DelayHit;
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
@@ -36,7 +38,7 @@ public class MeowCatBehavior : MonoBehaviour {
     bool IsOnTarget()
     {
         Vector2 distance = Player.transform.position - transform.position;
-        return distance.Equals(distance.normalized * DeadSpace);
+        return distance == distance.normalized * DeadSpace;
     }
 
     void Move()
@@ -49,28 +51,29 @@ public class MeowCatBehavior : MonoBehaviour {
 
     void DeliverHit()
     {
-        if (HitCountdown <= 0)
+        if (hitCountdown <= 0)
         {
             SpawnPlantPot();
-            HitCountdown = DelayHit;
+            hitCountdown = DelayHit;
         }
         else
         {
-            HitCountdown -= Time.deltaTime;
+            hitCountdown -= Time.deltaTime;
         }
     }
 
     void SpawnPlantPot()
     {
-        Vector2 plantPotPosition = new Vector2(Player.transform.position.x, Screen.height / 2);
-        Instantiate(PlantPot, plantPotPosition, Quaternion.identity);
+        Vector2 plantPotPosition = new Vector2(Player.transform.position.x, Camera.main.orthographicSize);
+        GameObject plantPot = Instantiate(PlantPot, plantPotPosition, Quaternion.identity);
+        plantPot.GetComponent<PlantPotBehavior>().TargetY = Player.transform.position.y;
     }
 
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        Energy -= PlayerBehaviour.AttackType.Weak.Equals(attackType) ? 20 : 40;
-        if (Energy <= 0)
+        energy -= PlayerBehaviour.AttackType.Weak.Equals(attackType) ? 20 : 40;
+        if (energy <= 0)
         {
             Die();
         }

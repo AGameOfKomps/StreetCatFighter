@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardCatBehaviour : MonoBehaviour
+public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 {
     public const float DamageByHeavy = 5;
     public const float DamageByWeak = 2;
@@ -17,7 +17,7 @@ public class WizardCatBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
    
     // Update is called once per frame

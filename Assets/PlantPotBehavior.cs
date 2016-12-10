@@ -7,14 +7,15 @@ public class PlantPotBehavior : MonoBehaviour {
     public const float Speed = 0.5f;
     public const float Damage = 20;
 
+    public float TargetY = 0;
+
     public GameObject Player;
 
     private bool isOnTarget;
-    private Vector2 target;
     
     // Use this for initialization
 	void Start () {
-        target = Player.transform.position;
+        Player = GameObject.FindGameObjectWithTag("Player");
         isOnTarget = false;
 	}
 	
@@ -41,7 +42,7 @@ public class PlantPotBehavior : MonoBehaviour {
     void Move()
     {
         transform.Translate(Vector2.down * Speed);
-        if (transform.position.Equals(target))
+        if (transform.position.y <= TargetY)
         {
             Die();
         }
@@ -55,6 +56,6 @@ public class PlantPotBehavior : MonoBehaviour {
 
     void Die()
     {
-        Destroy(this.gameObject);
+        DestroyImmediate(this.gameObject, true);
     }
 }
