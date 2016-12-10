@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public float Energy;
-    public int Lives;
+    public float Energy = 100;
+    public int Lives = 3;
+    public float Speed = 1;
 
     public enum AttackType
     {
@@ -23,10 +24,10 @@ public class PlayerBehaviour : MonoBehaviour
         var x = Input.GetAxis("Horizontal");
         var y = Input.GetAxis("Vertical");
 
-
+        transform.Translate(new Vector2(x, y) * Speed);
     }
 
-    public void ReceiveHit(int damage)
+    public void ReceiveHit(float damage)
     {
         Energy -= damage;
 
