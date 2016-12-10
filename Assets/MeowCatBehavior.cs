@@ -12,7 +12,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     public float Speed = 0.2f;
     public float Damage = 10;
     public GameObject PlantPot;
-
+    public GameObject PowerUp;
     private float hitCountdown;
     private GameObject player;
 
@@ -84,6 +84,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
+        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }
