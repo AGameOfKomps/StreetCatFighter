@@ -5,20 +5,21 @@ using UnityEngine;
 public class BasicEnemyBehavior : MonoBehaviour
 {
 
-    public float Speed;
-    public int Health;
-    public int Damage;
+    public const float Speed = 0.1f;
+    public const float Damage = 10;
+    public const float DelayHit = 3;
 
     public GameObject Player;
 
+    private float Energy;
+    private float HitCountdown;
     private bool IsOnTarget;
 
     // Use this for initialization
     void Start()
     {
-        Speed = 0.1f;
-        Health = 100;
-        Damage = 10;
+        Energy = 100;
+        HitCountdown = DelayHit;
         IsOnTarget = false;
     }
 
@@ -54,7 +55,15 @@ public class BasicEnemyBehavior : MonoBehaviour
     void DeliverHit()
     {
         // deliver hit animation
-        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+        if (HitCountdown <= 0)
+        {
+            Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+            HitCountdown = DelayHit;
+        }
+        else
+        {
+            HitCountdown -= Time.deltaTime;
+        }
     }
 
     void Move()
@@ -64,11 +73,11 @@ public class BasicEnemyBehavior : MonoBehaviour
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
 
-    public void ReceiveHit(bool attackType)
+    public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        Health -= attackType ? 20 : 40;
-        if (Health <= 0)
+        Energy -= PlayerBehaviour.AttackType.Weak.Equals(attackType) ? 20 : 40;
+        if (Energy <= 0)
         {
             Die();
         }
@@ -77,6 +86,6 @@ public class BasicEnemyBehavior : MonoBehaviour
     void Die()
     {
         // death animation
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 }
