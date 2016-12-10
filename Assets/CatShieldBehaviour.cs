@@ -2,56 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatShieldBehaviour : MonoBehaviour {
+public class CatShieldBehaviour : MonoBehaviour
+{
 
 
-    public float Speed;
-    public float Health;
+    public const float Speed =0.1f;
+    public const float DelayHit = 3;
+    public const float DamageByHeavy = 5;
+    public const float DamageByWeak = 2;
+    public const float Damage = 5;
+
     public GameObject Player;
-
-
-    public float DamageByHeavy;
-    public float DamageByWeak;
+    public float Health = 100;
     public bool HasShield = true;
     public float time = 3;
+    
+    private bool IsOnTarget = false;
 
-    public float Damage = 5;
+    private float HitCountdown = DelayHit;
     // Use this for initialization
     void Start () {
-        Speed = 0.1f;
-        Health = 100;
-        DamageByHeavy = 5;
-        DamageByWeak = 2;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (IsOnTarget())
+        if (IsOnTarget)
         {
-            //ReceiveHit(0);
-            if (Health > 0)
-            {
-                DeliverHit();
-            }
-            else
-            {
-                Die();
-            }
-
-            
-            time -= Time.deltaTime;
-            if (time < 0)
-                HasShield = true;
+            DeliverHit();
         }
         else
         {
             Move();
         }
+
+
+        time -= Time.deltaTime;
+            if (time < 0)
+                HasShield = true;
+        
+        
     }
 
-    bool IsOnTarget()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        return false;
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            IsOnTarget = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            IsOnTarget = false;
+        }
     }
 
     void Move()
@@ -63,7 +68,15 @@ public class CatShieldBehaviour : MonoBehaviour {
 
     void DeliverHit()
     {
-        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+        if (HitCountdown <= 0)
+        {
+            Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+            HitCountdown = DelayHit;
+        }
+        else
+        {
+            HitCountdown -= Time.deltaTime;
+        }
     }
 
     public void ReceiveHit(PlayerBehaviour.AttackType attType)
