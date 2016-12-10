@@ -61,6 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!A && !B)
         {
             GetComponent<Animator>().SetFloat("Horizontal", H);
+            GetComponent<Animator>().SetFloat("Vertical", V);
             transform.Translate(new Vector2(H, V) * Speed);
         }
 

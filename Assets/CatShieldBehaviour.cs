@@ -39,8 +39,11 @@ public class CatShieldBehaviour : MonoBehaviour, ICatDamageable
 
 
         time -= Time.deltaTime;
-            if (time < 0)
-                HasShield = true;
+        if (time < 0)
+        {
+            GetComponent<Animator>().SetTrigger("RegainedShield");
+            HasShield = true;
+        }
         
         
     }
@@ -89,6 +92,7 @@ public class CatShieldBehaviour : MonoBehaviour, ICatDamageable
             {
                 Health -= DamageByHeavy * 0.3f;
                 HasShield = false;
+                GetComponent<Animator>().SetTrigger("LostShield");
             }
 
             else

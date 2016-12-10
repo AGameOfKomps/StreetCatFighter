@@ -1,21 +1,21 @@
 fileFormatVersion: 2
-guid: 6da892e151175304f8d58aae0b40eecc
-timeCreated: 1481407701
+guid: 3e635816e3c46c0439f30e8b8cd89d30
+timeCreated: 1481406390
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: cat_walk_0
-    21300002: cat_walk_1
-    21300004: cat_walk_2
-    21300006: cat_walk_3
-    21300008: cat_walk_4
-    21300010: cat_walk_5
-    21300012: cat_walk_6
-    21300014: cat_walk_7
-    21300016: cat_walk_8
-    21300018: cat_walk_9
-    21300020: cat_walk_10
-    21300022: cat_walk_11
+    21300000: cat_enemy_shield_left_0
+    21300002: cat_enemy_shield_left_1
+    21300004: cat_enemy_shield_left_2
+    21300006: cat_enemy_shield_left_3
+    21300008: cat_enemy_shield_left_4
+    21300010: cat_enemy_shield_left_5
+    21300012: cat_enemy_shield_left_6
+    21300014: cat_enemy_shield_left_7
+    21300016: cat_enemy_shield_left_8
+    21300018: cat_enemy_shield_left_9
+    21300020: cat_enemy_shield_left_10
+    21300022: cat_enemy_shield_left_11
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -82,7 +82,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cat_walk_0
+      name: cat_enemy_shield_left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -95,7 +95,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_1
+      name: cat_enemy_shield_left_1
       rect:
         serializedVersion: 2
         x: 128
@@ -108,7 +108,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_2
+      name: cat_enemy_shield_left_2
       rect:
         serializedVersion: 2
         x: 256
@@ -121,7 +121,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_3
+      name: cat_enemy_shield_left_3
       rect:
         serializedVersion: 2
         x: 384
@@ -134,7 +134,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_4
+      name: cat_enemy_shield_left_4
       rect:
         serializedVersion: 2
         x: 512
@@ -147,7 +147,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_5
+      name: cat_enemy_shield_left_5
       rect:
         serializedVersion: 2
         x: 640
@@ -160,7 +160,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_6
+      name: cat_enemy_shield_left_6
       rect:
         serializedVersion: 2
         x: 768
@@ -173,7 +173,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_7
+      name: cat_enemy_shield_left_7
       rect:
         serializedVersion: 2
         x: 896
@@ -186,7 +186,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_8
+      name: cat_enemy_shield_left_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -199,7 +199,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_9
+      name: cat_enemy_shield_left_9
       rect:
         serializedVersion: 2
         x: 1152
@@ -212,7 +212,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_10
+      name: cat_enemy_shield_left_10
       rect:
         serializedVersion: 2
         x: 1280
@@ -225,7 +225,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_walk_11
+      name: cat_enemy_shield_left_11
       rect:
         serializedVersion: 2
         x: 1408
