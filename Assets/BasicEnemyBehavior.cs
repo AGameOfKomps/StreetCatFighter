@@ -8,7 +8,10 @@ public class BasicEnemyBehavior : MonoBehaviour
     public float Speed;
     public int Health;
     public int Damage;
+
     public GameObject Player;
+
+    private bool IsOnTarget;
 
     // Use this for initialization
     void Start()
@@ -16,21 +19,15 @@ public class BasicEnemyBehavior : MonoBehaviour
         Speed = 0.1f;
         Health = 100;
         Damage = 10;
+        IsOnTarget = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsOnTarget())
+        if (IsOnTarget)
         {
-            if (Health > 0)
-            {
-                DeliverHit();
-            }
-            else
-            {
-                Die();
-            }
+            DeliverHit();
         }
         else
         {
@@ -38,9 +35,26 @@ public class BasicEnemyBehavior : MonoBehaviour
         }
     }
 
-    bool IsOnTarget()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        return false;
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            IsOnTarget = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            IsOnTarget = false;
+        }
+    }
+
+    void DeliverHit()
+    {
+        // deliver hit animation
+        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
     }
 
     void Move()
@@ -50,16 +64,14 @@ public class BasicEnemyBehavior : MonoBehaviour
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
 
-    void DeliverHit()
-    {
-        // deliver hit animation
-        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
-    }
-
     public void ReceiveHit(bool attackType)
     {
         // receive hit animation
         Health -= attackType ? 20 : 40;
+        if (Health <= 0)
+        {
+            Die();
+        }
     }
 
     void Die()
