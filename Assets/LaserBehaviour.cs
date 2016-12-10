@@ -8,8 +8,8 @@ public class LaserBehaviour : MonoBehaviour {
     public int PlayerOffset = 2;
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
 	
 	// Update is called once per frame
 	public void Point () {
@@ -22,6 +22,10 @@ public class LaserBehaviour : MonoBehaviour {
             transform.position = new Vector2(Player.transform.position.x + PlayerOffset, Player.transform.position.y - PlayerOffset);
         else if(r>=0.75f)
             transform.position = new Vector2(Player.transform.position.x + PlayerOffset, Player.transform.position.y + PlayerOffset);
+
+        Player.GetComponent<PlayerBehaviour>().LaserOn = true;
     }
+
+
     
 }

@@ -9,6 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int Lives = 3;
     public float Speed = 1;
 
+    public bool LaserOn;
     public PlayerDirection Direction = PlayerDirection.Right;
 
     public enum PlayerDirection
@@ -39,6 +40,11 @@ public class PlayerBehaviour : MonoBehaviour
     
     void Update()
     {
+        if(LaserOn)
+        {
+            GoToLaser();
+            return;
+        }
         H = Input.GetAxis("Horizontal");
         V = Input.GetAxis("Vertical");
 
@@ -63,6 +69,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (!J && B)
             HeavyAttack();
+    }
+
+    private void GoToLaser()
+    {
+        GameObject Laser = GameObject.FindGameObjectWithTag("Laser");
+        Vector2 distance = Laser.transform.position - transform.position;
+        Vector2 delta = distance.normalized * Speed;
+        transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
 
     private void WeakAttack()
