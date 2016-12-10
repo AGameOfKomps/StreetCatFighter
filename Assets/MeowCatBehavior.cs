@@ -10,17 +10,17 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     public const float DelayHit = 3;
     public const float DeadSpace = 3;
 
-    public GameObject Player;
     public GameObject PlantPot;
 
     private float energy;
     private float hitCountdown;
+    private GameObject player;
 
     // Use this for initialization
     void Start () {
         energy = 100;
         hitCountdown = DelayHit;
-        Player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
@@ -37,13 +37,13 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
 
     bool IsOnTarget()
     {
-        Vector2 distance = Player.transform.position - transform.position;
+        Vector2 distance = player.transform.position - transform.position;
         return distance == distance.normalized * DeadSpace;
     }
 
     void Move()
     {
-        Vector2 distance = Player.transform.position - transform.position;
+        Vector2 distance = player.transform.position - transform.position;
         Vector2 target = distance - distance.normalized * DeadSpace;
         Vector2 delta = target.normalized * Speed;
         transform.Translate(delta.sqrMagnitude > target.sqrMagnitude ? target : delta);
@@ -64,9 +64,9 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
 
     void SpawnPlantPot()
     {
-        Vector2 plantPotPosition = new Vector2(Player.transform.position.x, Camera.main.orthographicSize);
+        Vector2 plantPotPosition = new Vector2(player.transform.position.x, Camera.main.orthographicSize);
         GameObject plantPot = Instantiate(PlantPot, plantPotPosition, Quaternion.identity);
-        plantPot.GetComponent<PlantPotBehavior>().TargetY = Player.transform.position.y;
+        plantPot.GetComponent<PlantPotBehavior>().TargetY = player.transform.position.y;
     }
 
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
