@@ -12,6 +12,8 @@ public class PlayerBehaviour : MonoBehaviour
     public bool LaserOn;
     public PlayerDirection Direction = PlayerDirection.Right;
 
+    public Rigidbody2D RigidBody;
+
     public enum PlayerDirection
     {
         Left,
