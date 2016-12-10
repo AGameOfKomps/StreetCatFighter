@@ -61,7 +61,10 @@ public class PlayerBehaviour : MonoBehaviour
             Direction = PlayerDirection.Left;
 
         if (!A && !B)
+        {
+            GetComponent<Animator>().SetFloat("Horizontal", H);
             transform.Translate(new Vector2(H, V) * Speed);
+        }
 
         if (J)
             Jump();
