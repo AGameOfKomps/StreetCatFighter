@@ -9,26 +9,24 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     public const float Damage = 10;
     public const float DelayHit = 3;
 
-    public GameObject Player;
-    public GameObject PowerUp;
-
-    private float Energy;
-    private float HitCountdown;
-    private bool IsOnTarget;
+    private float energy;
+    private float hitCountdown;
+    private bool isOnTarget;
+    private GameObject player;
 
     // Use this for initialization
     void Start()
     {
-        Energy = 100;
-        HitCountdown = DelayHit;
-        IsOnTarget = false;
-        Player = GameObject.FindGameObjectWithTag("Player");
+        energy = 100;
+        hitCountdown = DelayHit;
+        isOnTarget = false;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsOnTarget)
+        if (isOnTarget)
         {
             DeliverHit();
         }
@@ -42,7 +40,7 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            IsOnTarget = true;
+            isOnTarget = true;
         }
     }
 
@@ -50,27 +48,27 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            IsOnTarget = false;
+            isOnTarget = false;
         }
     }
 
     void DeliverHit()
     {
         // deliver hit animation
-        if (HitCountdown <= 0)
+        if (hitCountdown <= 0)
         {
-            Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
-            HitCountdown = DelayHit;
+            player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+            hitCountdown = DelayHit;
         }
         else
         {
-            HitCountdown -= Time.deltaTime;
+            hitCountdown -= Time.deltaTime;
         }
     }
 
     void Move()
     {
-        Vector2 distance = Player.transform.position - transform.position;
+        Vector2 distance = player.transform.position - transform.position;
         Vector2 delta = distance.normalized * Speed;
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
@@ -78,8 +76,8 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        Energy -= PlayerBehaviour.AttackType.Weak == attackType ? 20 : 40;
-        if (Energy <= 0)
+        energy -= PlayerBehaviour.AttackType.Weak == attackType ? 20 : 40;
+        if (energy <= 0)
         {
             Die();
         }
@@ -88,7 +86,6 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
-        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }

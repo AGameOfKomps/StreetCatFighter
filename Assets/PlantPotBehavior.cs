@@ -9,13 +9,12 @@ public class PlantPotBehavior : MonoBehaviour {
 
     public float TargetY = 0;
 
-    public GameObject Player;
-
     private bool isOnTarget;
+    private GameObject player;
     
     // Use this for initialization
 	void Start () {
-        Player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         isOnTarget = false;
 	}
 	
@@ -50,7 +49,7 @@ public class PlantPotBehavior : MonoBehaviour {
 
     void DeliverHit()
     {
-        Player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+        player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
         Die();
     }
 
