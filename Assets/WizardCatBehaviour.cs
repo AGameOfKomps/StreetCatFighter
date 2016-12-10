@@ -4,57 +4,58 @@ using UnityEngine;
 
 public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 {
+    public const float DELAY_HIT = 3;
+    public const float DEAD_SPACE = 3;
+
     public float Energy = 100;
     public float Speed = 0.1f;
     public GameObject Laser;
     public GameObject PowerUp;
 
+    private float hitCountdown;
     private GameObject player;
 
     // Use this for initialization
     void Start()
     {
+        hitCountdown = DELAY_HIT;
         player = GameObject.FindGameObjectWithTag("Player");
     }
    
     // Update is called once per frame
     void Update()
     {
-        var distance = Vector2.Distance(transform.position, player.transform.position);
-        if (distance < 7.5f)
-        {
-            MoveAway();
-            Laser.SetActive(false);
-        }
-        else if (distance > 8.5f)
-        {
+        if (IsOnTarget())
+            DeliverHit();
+        else
             Move();
-            Laser.SetActive(false);
+    }
+
+    bool IsOnTarget()
+    {
+        return Vector2.Distance(transform.position, player.transform.position) == DEAD_SPACE;
+    }
+
+    void DeliverHit()
+    {
+        if (hitCountdown <= 0)
+        {
+            Laser.SetActive(true);
+            GetComponentInChildren<LaserBehaviour>().Point();
+            hitCountdown = DELAY_HIT;
         }
         else
         {
-            if (Random.value > 0.75f)
-            {
-                Laser.SetActive(true);
-                GetComponentInChildren<LaserBehaviour>().Point();;       
-            }
-        }         
+            hitCountdown -= Time.deltaTime;
+        }
     }
-  
-
 
     void Move()
     {
         Vector2 distance = player.transform.position - transform.position;
-        Vector2 delta = distance.normalized * Speed;
-        transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
-    }
-
-    void MoveAway()
-    {
-        Vector2 distance = player.transform.position - transform.position;
-        Vector2 delta = distance.normalized * Speed;
-        transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? -distance : -delta);
+        Vector2 target = distance - distance.normalized * DEAD_SPACE;
+        Vector2 delta = target.normalized * Speed;
+        transform.Translate(delta.sqrMagnitude > target.sqrMagnitude ? target : delta);
     }
 
    
