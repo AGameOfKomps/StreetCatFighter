@@ -13,6 +13,7 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     private float hitCountdown;
     private bool isOnTarget;
     private GameObject player;
+    public GameObject PowerUp;
 
     // Use this for initialization
     void Start()
@@ -86,6 +87,7 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
+        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }
