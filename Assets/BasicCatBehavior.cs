@@ -10,6 +10,7 @@ public class BasicCatBehavior : MonoBehaviour
     public const float DelayHit = 3;
 
     public GameObject Player;
+    public GameObject PowerUp;
 
     private float Energy;
     private float HitCountdown;
@@ -86,6 +87,7 @@ public class BasicCatBehavior : MonoBehaviour
     void Die()
     {
         // death animation
+        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }

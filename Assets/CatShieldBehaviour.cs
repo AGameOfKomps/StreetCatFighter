@@ -13,6 +13,7 @@ public class CatShieldBehaviour : MonoBehaviour
     public const float Damage = 5;
 
     public GameObject Player;
+    public GameObject PowerUp;
     public float Health = 100;
     public bool HasShield = true;
     public float time = 3;
@@ -105,6 +106,7 @@ public class CatShieldBehaviour : MonoBehaviour
 
     void Die()
     {
+        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }
