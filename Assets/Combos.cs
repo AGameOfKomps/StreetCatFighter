@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class Combos : MonoBehaviour {
 
     public const int MAX_COMBOS = 5;
     public const float COMBO_DELAY = 0.5f;
@@ -17,13 +17,6 @@ public class NewBehaviourScript : MonoBehaviour {
         Light,
         Jump,
         Dodge
-    }
-
-    public enum ComboType {
-        None,
-        One,
-        Two,
-        Three
     }
 
     private List<ActionType> attacks;
@@ -44,9 +37,9 @@ public class NewBehaviourScript : MonoBehaviour {
         }
 	}
 
-    public ComboType storeAction(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
+    public PlayerBehaviour.AttackType fetchCombo(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
     {
-        ComboType result = ComboType.None;
+        PlayerBehaviour.AttackType result = PlayerBehaviour.AttackType.None;
         ActionType actionType = mapActionType(vertical, horizontal, isHeavy, isLight, isJump, isDodge);
         if (ActionType.None != actionType)
         {
@@ -83,15 +76,15 @@ public class NewBehaviourScript : MonoBehaviour {
         return result;
     }
 
-    private ComboType checkCombo()
+    private PlayerBehaviour.AttackType checkCombo()
     {
-        ComboType result = ComboType.None;
+        PlayerBehaviour.AttackType result = PlayerBehaviour.AttackType.None;
         if (isComboOne())
-            result = ComboType.One;
+            result = PlayerBehaviour.AttackType.ComboOne;
         else if (isComboTwo())
-            result = ComboType.Two;
+            result = PlayerBehaviour.AttackType.ComboTwo;
         else if (isComboThree())
-            result = ComboType.Three;
+            result = PlayerBehaviour.AttackType.ComboThree;
         return result;
     }
 

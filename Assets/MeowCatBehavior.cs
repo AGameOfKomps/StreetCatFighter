@@ -72,7 +72,11 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        energy -= PlayerBehaviour.AttackType.Weak.Equals(attackType) ? 20 : 40;
+        energy -= attackType == PlayerBehaviour.AttackType.Light ? 20
+            : attackType == PlayerBehaviour.AttackType.Heavy ? 40
+            : attackType == PlayerBehaviour.AttackType.ComboOne ? 45
+            : attackType == PlayerBehaviour.AttackType.ComboTwo ? 50
+            : 55;
         if (energy <= 0)
         {
             Die();

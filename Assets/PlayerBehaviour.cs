@@ -57,7 +57,7 @@ public class PlayerBehaviour : MonoBehaviour
         H = Input.GetAxis("Horizontal");
         V = Input.GetAxis("Vertical");
 
-        A = Input.GetButtonDown("Weak Attack");
+        A = Input.GetButtonDown("Light Attack");
         B = Input.GetButtonDown("Heavy Attack");
 
         J = Input.GetButtonDown("Jump");
@@ -83,7 +83,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!J && B)
             TriggerAttack(AttackType.Heavy);
 
-        //TriggerAttack(Combos.fet)
+        TriggerAttack(GetComponent<Combos>().fetchCombo(V, H, B, A, J, false));
     }
 
     private void GoToLaser()
