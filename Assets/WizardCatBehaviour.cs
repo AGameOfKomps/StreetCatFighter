@@ -10,6 +10,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     public GameObject Player;
     public GameObject Laser;
+    public GameObject PowerUp;
     public float Speed=0.1f;
 
     public float Health = 100;
@@ -18,7 +19,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
     {
         Player = GameObject.FindGameObjectWithTag("Player");
     }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -40,13 +41,16 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
             if (Random.value > 0.75f)
             {
                 Laser.SetActive(true);
-                GetComponentInChildren<LaserBehaviour>().Point();
+                GetComponentInChildren<LaserBehaviour>().Point();;
+                
             }
         }
 
         
                 
     }
+  
+
 
     void Move()
     {
@@ -78,6 +82,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Die()
     {
+        PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
 }
