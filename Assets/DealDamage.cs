@@ -12,7 +12,7 @@ public class DealDamage : MonoBehaviour
         if (col.tag.Equals("Enemy"))
         {
             col.GetComponent<ICatDamageable>().ReceiveHit(AttackType);
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

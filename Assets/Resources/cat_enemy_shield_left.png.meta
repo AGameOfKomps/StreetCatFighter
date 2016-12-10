@@ -1,19 +1,21 @@
 fileFormatVersion: 2
-guid: bbd08ede687ce3645b0a922f5ca2ce9c
-timeCreated: 1481407843
+guid: 3e635816e3c46c0439f30e8b8cd89d30
+timeCreated: 1481406390
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: cat_idle_left_0
-    21300002: cat_idle_left_1
-    21300004: cat_idle_left_2
-    21300006: cat_idle_left_3
-    21300008: cat_idle_left_4
-    21300010: cat_idle_left_5
-    21300012: cat_idle_left_6
-    21300014: cat_idle_left_7
-    21300016: cat_idle_left_8
-    21300018: cat_idle_left_9
+    21300000: cat_enemy_shield_left_0
+    21300002: cat_enemy_shield_left_1
+    21300004: cat_enemy_shield_left_2
+    21300006: cat_enemy_shield_left_3
+    21300008: cat_enemy_shield_left_4
+    21300010: cat_enemy_shield_left_5
+    21300012: cat_enemy_shield_left_6
+    21300014: cat_enemy_shield_left_7
+    21300016: cat_enemy_shield_left_8
+    21300018: cat_enemy_shield_left_9
+    21300020: cat_enemy_shield_left_10
+    21300022: cat_enemy_shield_left_11
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -80,7 +82,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cat_idle_left_0
+      name: cat_enemy_shield_left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -93,7 +95,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_1
+      name: cat_enemy_shield_left_1
       rect:
         serializedVersion: 2
         x: 128
@@ -106,7 +108,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_2
+      name: cat_enemy_shield_left_2
       rect:
         serializedVersion: 2
         x: 256
@@ -119,7 +121,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_3
+      name: cat_enemy_shield_left_3
       rect:
         serializedVersion: 2
         x: 384
@@ -132,7 +134,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_4
+      name: cat_enemy_shield_left_4
       rect:
         serializedVersion: 2
         x: 512
@@ -145,7 +147,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_5
+      name: cat_enemy_shield_left_5
       rect:
         serializedVersion: 2
         x: 640
@@ -158,7 +160,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_6
+      name: cat_enemy_shield_left_6
       rect:
         serializedVersion: 2
         x: 768
@@ -171,7 +173,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_7
+      name: cat_enemy_shield_left_7
       rect:
         serializedVersion: 2
         x: 896
@@ -184,7 +186,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_8
+      name: cat_enemy_shield_left_8
       rect:
         serializedVersion: 2
         x: 1024
@@ -197,10 +199,36 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: cat_idle_left_9
+      name: cat_enemy_shield_left_9
       rect:
         serializedVersion: 2
         x: 1152
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cat_enemy_shield_left_10
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cat_enemy_shield_left_11
+      rect:
+        serializedVersion: 2
+        x: 1408
         y: 0
         width: 128
         height: 128

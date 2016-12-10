@@ -12,6 +12,8 @@ public class PlayerBehaviour : MonoBehaviour
     public bool LaserOn;
     public PlayerDirection Direction = PlayerDirection.Right;
 
+    public Rigidbody2D RigidBody;
+
     public enum PlayerDirection
     {
         Left,
@@ -68,6 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!A && !B)
         {
             GetComponent<Animator>().SetFloat("Horizontal", H);
+            GetComponent<Animator>().SetFloat("Vertical", V);
             transform.Translate(new Vector2(H, V) * Speed);
         }
 
