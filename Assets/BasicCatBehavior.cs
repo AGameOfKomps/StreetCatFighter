@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemyBehavior : MonoBehaviour
+public class BasicCatBehavior : MonoBehaviour
 {
 
     public const float Speed = 0.1f;
