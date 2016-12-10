@@ -27,12 +27,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     public enum AttackType
     {
-        Weak,
-        Heavy
+        None,
+        Light,
+        Heavy,
+        ComboOne,
+        ComboTwo,
+        ComboThree
     }
 
-    public GameObject WeakAttackHitBox;
+    public GameObject LightAttackHitBox;
     public GameObject HeavyAttackHitBox;
+    public GameObject ComboOneAttackHitBox;
+    public GameObject ComboTwoAttackHitBox;
+    public GameObject ComboThreeAttackHitBox;
 
     void Start()
     {
@@ -68,10 +75,12 @@ public class PlayerBehaviour : MonoBehaviour
             Jump();
 
         if (!J && A)
-            WeakAttack();
+            TriggerAttack(AttackType.Light);
 
         if (!J && B)
-            HeavyAttack();
+            TriggerAttack(AttackType.Heavy);
+
+        //TriggerAttack(Combos.fet)
     }
 
     private void GoToLaser()
@@ -82,38 +91,32 @@ public class PlayerBehaviour : MonoBehaviour
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
 
-    private void WeakAttack()
+    private void TriggerAttack(AttackType attackType)
     {
-        WeakAttackHitBox.SetActive(true);
-
-        // Start animation
-
-        var x = transform.position.x;
-        var y = transform.position.y;
-        if (Direction == PlayerDirection.Right)
-            WeakAttackHitBox.transform.position = new Vector2(x + 0.5f, y);
-        else if (Direction == PlayerDirection.Left)
-            WeakAttackHitBox.transform.position = new Vector2(x - 0.5f, y);
-
-        // Do damage
-        //WeakAttackHitBox.SetActive(false);
+        if (attackType == AttackType.Light)
+            PerformAttack(LightAttackHitBox, 0.5f);
+        else if (attackType == AttackType.Heavy)
+            PerformAttack(HeavyAttackHitBox, 0.5f);
+        else if (attackType == AttackType.ComboOne)
+            PerformAttack(ComboOneAttackHitBox, 1);
+        else if (attackType == AttackType.ComboTwo)
+            PerformAttack(ComboTwoAttackHitBox, 1);
+        else if (attackType == AttackType.ComboThree)
+            PerformAttack(ComboThreeAttackHitBox, 1);
     }
 
-    private void HeavyAttack()
+    private void PerformAttack(GameObject hitBox, float deltaX)
     {
-        WeakAttackHitBox.SetActive(true);
+        hitBox.SetActive(true);
 
         // Start animation
 
         var x = transform.position.x;
         var y = transform.position.y;
         if (Direction == PlayerDirection.Right)
-            WeakAttackHitBox.transform.position = new Vector2(x + 0.5f, y);
+            LightAttackHitBox.transform.position = new Vector2(x + deltaX, y);
         else if (Direction == PlayerDirection.Left)
-            WeakAttackHitBox.transform.position = new Vector2(x - 0.5f, y);
-
-        // Do damage
-        //WeakAttackHitBox.SetActive(false);
+            LightAttackHitBox.transform.position = new Vector2(x - deltaX, y);
     }
 
     public void ReceiveHit(float damage)
