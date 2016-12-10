@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlantPotBehavior : MonoBehaviour {
 
-    public const float Speed = 0.5f;
-    public const float Damage = 20;
-
+    public float Speed = 0.5f;
+    public float Damage = 20;
     public float TargetY = 0;
 
     private bool isOnTarget;
@@ -20,14 +19,15 @@ public class PlantPotBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (isOnTarget)
-        {
+        if (IsOnTarget())
             DeliverHit();
-        }
         else
-        {
             Move();
-        }
+    }
+
+    bool IsOnTarget()
+    {
+        return isOnTarget;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -38,6 +38,12 @@ public class PlantPotBehavior : MonoBehaviour {
         }
     }
 
+    void DeliverHit()
+    {
+        player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
+        Die();
+    }
+
     void Move()
     {
         transform.Translate(Vector2.down * Speed);
@@ -45,12 +51,6 @@ public class PlantPotBehavior : MonoBehaviour {
         {
             Die();
         }
-    }
-
-    void DeliverHit()
-    {
-        player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
-        Die();
     }
 
     void Die()

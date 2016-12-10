@@ -37,10 +37,10 @@ public class Combos : MonoBehaviour {
         }
 	}
 
-    public PlayerBehaviour.AttackType fetchCombo(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
+    public PlayerBehaviour.AttackType FetchCombo(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
     {
         PlayerBehaviour.AttackType result = PlayerBehaviour.AttackType.None;
-        ActionType actionType = mapActionType(vertical, horizontal, isHeavy, isLight, isJump, isDodge);
+        ActionType actionType = MapActionType(vertical, horizontal, isHeavy, isLight, isJump, isDodge);
         if (ActionType.None != actionType)
         {
             comboCountdown = COMBO_DELAY;
@@ -49,12 +49,12 @@ public class Combos : MonoBehaviour {
             {
                 attacks.RemoveAt(MAX_COMBOS);
             }
-            result = checkCombo();
+            result = CheckCombo();
         }
         return result;
     }
 
-    ActionType mapActionType(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
+    ActionType MapActionType(float vertical, float horizontal, bool isHeavy, bool isLight, bool isJump, bool isDodge)
     {
         ActionType result = ActionType.None;
         if (isLight)
@@ -76,33 +76,33 @@ public class Combos : MonoBehaviour {
         return result;
     }
 
-    private PlayerBehaviour.AttackType checkCombo()
+    private PlayerBehaviour.AttackType CheckCombo()
     {
         PlayerBehaviour.AttackType result = PlayerBehaviour.AttackType.None;
-        if (isComboOne())
+        if (IsComboOne())
             result = PlayerBehaviour.AttackType.ComboOne;
-        else if (isComboTwo())
+        else if (IsComboTwo())
             result = PlayerBehaviour.AttackType.ComboTwo;
-        else if (isComboThree())
+        else if (IsComboThree())
             result = PlayerBehaviour.AttackType.ComboThree;
         return result;
     }
 
-    private bool isComboOne()
+    private bool IsComboOne()
     {
         return attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 
             && attacks[2] == ActionType.Light;
     }
 
-    private bool isComboTwo()
+    private bool IsComboTwo()
     {
         return attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 
             && attacks[2] == ActionType.Heavy;
     }
 
-    private bool isComboThree()
+    private bool IsComboThree()
     {
         return attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 

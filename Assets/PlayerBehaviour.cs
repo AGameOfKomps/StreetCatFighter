@@ -83,7 +83,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!J && B)
             TriggerAttack(AttackType.Heavy);
 
-        TriggerAttack(GetComponent<Combos>().fetchCombo(V, H, B, A, J, false));
+        TriggerAttack(GetComponent<Combos>().FetchCombo(V, H, B, A, J, false));
     }
 
     private void GoToLaser()

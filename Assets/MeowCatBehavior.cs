@@ -5,48 +5,35 @@ using UnityEngine;
 public class MeowCatBehavior : MonoBehaviour, ICatDamageable
 {
 
-    public const float Speed = 0.2f;
-    public const float Damage = 10;
-    public const float DelayHit = 3;
-    public const float DeadSpace = 3;
+    public const float DELAY_HIT = 3;
+    public const float DEAD_SPACE = 3;
 
+    public float Energy = 100;
+    public float Speed = 0.2f;
+    public float Damage = 10;
     public GameObject PlantPot;
 
-    private float energy;
     private float hitCountdown;
     private GameObject player;
 
     // Use this for initialization
     void Start () {
-        energy = 100;
-        hitCountdown = DelayHit;
+        hitCountdown = DELAY_HIT;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
 	void Update () {
 		if (IsOnTarget())
-        {
             DeliverHit();
-        }
         else
-        {
             Move();
-        }
 	}
 
     bool IsOnTarget()
     {
         Vector2 distance = player.transform.position - transform.position;
-        return distance == distance.normalized * DeadSpace;
-    }
-
-    void Move()
-    {
-        Vector2 distance = player.transform.position - transform.position;
-        Vector2 target = distance - distance.normalized * DeadSpace;
-        Vector2 delta = target.normalized * Speed;
-        transform.Translate(delta.sqrMagnitude > target.sqrMagnitude ? target : delta);
+        return distance == distance.normalized * DEAD_SPACE;
     }
 
     void DeliverHit()
@@ -54,7 +41,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
         if (hitCountdown <= 0)
         {
             SpawnPlantPot();
-            hitCountdown = DelayHit;
+            hitCountdown = DELAY_HIT;
         }
         else
         {
@@ -69,15 +56,23 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
         plantPot.GetComponent<PlantPotBehavior>().TargetY = player.transform.position.y;
     }
 
+    void Move()
+    {
+        Vector2 distance = player.transform.position - transform.position;
+        Vector2 target = distance - distance.normalized * DEAD_SPACE;
+        Vector2 delta = target.normalized * Speed;
+        transform.Translate(delta.sqrMagnitude > target.sqrMagnitude ? target : delta);
+    }
+
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        energy -= attackType == PlayerBehaviour.AttackType.Light ? 20
+        Energy -= attackType == PlayerBehaviour.AttackType.Light ? 20
             : attackType == PlayerBehaviour.AttackType.Heavy ? 40
             : attackType == PlayerBehaviour.AttackType.ComboOne ? 45
             : attackType == PlayerBehaviour.AttackType.ComboTwo ? 50
             : 55;
-        if (energy <= 0)
+        if (Energy <= 0)
         {
             Die();
         }
