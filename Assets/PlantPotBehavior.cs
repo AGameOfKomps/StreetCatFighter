@@ -15,6 +15,7 @@ public class PlantPotBehavior : MonoBehaviour {
     
     // Use this for initialization
 	void Start () {
+        Player = GameObject.FindGameObjectWithTag("Player");
         isOnTarget = false;
 	}
 	

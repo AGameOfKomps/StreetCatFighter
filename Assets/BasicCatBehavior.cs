@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicCatBehavior : MonoBehaviour
+public class BasicCatBehavior : MonoBehaviour, ICatDamageable
 {
 
     public const float Speed = 0.1f;
@@ -21,6 +21,7 @@ public class BasicCatBehavior : MonoBehaviour
         Energy = 100;
         HitCountdown = DelayHit;
         IsOnTarget = false;
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -76,7 +77,7 @@ public class BasicCatBehavior : MonoBehaviour
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)
     {
         // receive hit animation
-        Energy -= PlayerBehaviour.AttackType.Weak.Equals(attackType) ? 20 : 40;
+        Energy -= PlayerBehaviour.AttackType.Weak == attackType ? 20 : 40;
         if (Energy <= 0)
         {
             Die();

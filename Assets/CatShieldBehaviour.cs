@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatShieldBehaviour : MonoBehaviour
+public class CatShieldBehaviour : MonoBehaviour, ICatDamageable
 {
 
 
@@ -22,6 +22,7 @@ public class CatShieldBehaviour : MonoBehaviour
     private float HitCountdown = DelayHit;
     // Use this for initialization
     void Start () {
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
