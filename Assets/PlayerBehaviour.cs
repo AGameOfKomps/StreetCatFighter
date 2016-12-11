@@ -94,10 +94,16 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         if (!_inAir && A)
+        {
+            GetComponent<Animator>().SetTrigger("L");
             TriggerAttack(AttackType.Light);
+        }
 
         if (!_inAir && B)
+        {
+            GetComponent<Animator>().SetTrigger("H");
             TriggerAttack(AttackType.Heavy);
+        }
 
         TriggerAttack(GetComponent<Combos>().FetchCombo(V, H, B, A, J, false));
     }
