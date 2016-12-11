@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossBehaviour : MonoBehaviour {
 
@@ -19,7 +20,12 @@ public class BossBehaviour : MonoBehaviour {
     private bool isOnTarget;
     private bool hasShield;
     private GameObject player;
-    // Use this for initialization
+
+    public GameObject Text;
+    public GameObject Line;
+    public GameObject Bar;
+    public GameObject Canvas;
+
     void Start() {
         hitCountdown = DELAY_HIT;
         shieldRestoreCountdown = DELAY_SHIELD_RESTORE;
@@ -41,6 +47,10 @@ public class BossBehaviour : MonoBehaviour {
     public void Spawn()
     {
         Spawned = true;
+
+        Text.SetActive(true);
+        Line.SetActive(true);
+        Bar.SetActive(true);
     }
 
     bool IsOnTarget()
@@ -94,6 +104,10 @@ public class BossBehaviour : MonoBehaviour {
             : attackType == PlayerBehaviour.AttackType.ComboOne ? applyDamageReductor(7, false)
             : attackType == PlayerBehaviour.AttackType.ComboTwo ? applyDamageReductor(10, false)
             : applyDamageReductor(12, true);
+
+        RectTransform rt = Bar.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(Energy, 16.7f);
+
         if (Energy <= 0)
         {
             Die();
@@ -118,7 +132,7 @@ public class BossBehaviour : MonoBehaviour {
     void Die()
     {
         GetComponent<AudioSource>().Play();
-        PowerUp.GetComponent<Orbs>().Appear(transform.position);
+        SceneManager.LoadScene("MainMenu");
         Destroy(this.gameObject);
     }
     

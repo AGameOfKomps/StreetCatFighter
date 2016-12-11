@@ -20,6 +20,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float GodModeCountdown = 0;
     public float SuperSpeedCountdown = 0;
 
+    public GameObject Bar;
+
     public enum PlayerDirection
     {
         Left,
@@ -207,6 +209,9 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Energy -= G ? damage * 0.7f : damage;
             GameManager.GetComponent<ScoreCounter>().registerHitReceive();
+            
+            RectTransform rt = Bar.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(Energy, 16.7f);
 
             if (Energy <= 0)
                 Die();
