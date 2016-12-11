@@ -7,7 +7,7 @@ public class BossBehaviour : MonoBehaviour {
     public const float DELAY_HIT = 3;
     public const float DELAY_SHIELD_RESTORE = 3;
 
-    public float Energy = 100;
+    public float Energy = 500;
     public float Speed = 0.1f;
     public float Damage = 5;
     public GameObject PowerUp;
@@ -74,6 +74,7 @@ public class BossBehaviour : MonoBehaviour {
     {
         if (hitCountdown <= 0)
         {
+            GetComponent<AudioSource>().Play();
             player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
             hitCountdown = DELAY_HIT;
             GetComponent<Animator>().SetBool("Attack", true);
@@ -116,6 +117,7 @@ public class BossBehaviour : MonoBehaviour {
 
     void Die()
     {
+        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }

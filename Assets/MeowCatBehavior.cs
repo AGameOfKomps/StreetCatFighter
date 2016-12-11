@@ -48,6 +48,8 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
         {
             if (hitCountdown <= 1.5)
                 GetComponent<Animator>().SetTrigger("Meowing");
+            if (!GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Play();
             hitCountdown -= Time.deltaTime;
         }
     }
@@ -84,6 +86,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
+        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
