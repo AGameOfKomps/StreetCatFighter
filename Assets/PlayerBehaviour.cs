@@ -92,12 +92,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (!_inAir && J)
         {
+            GetComponent<Animator>().SetTrigger("Jump");
             _oldY = transform.position.y;
             Jump();
         }
 
         if (_inAir && _oldY > transform.position.y)
         {
+            GetComponent<Animator>().SetTrigger("Land");
             RigidBody.gravityScale = 0;
             RigidBody.velocity = Vector2.zero;
             _inAir = false;
