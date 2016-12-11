@@ -5,7 +5,7 @@ using UnityEngine;
 public class Combos : MonoBehaviour {
 
     public const int MAX_COMBOS = 5;
-    public const float COMBO_DELAY = 0.5f;
+    public const float COMBO_DELAY = 0.9f;
 
     public enum ActionType {
         None,
@@ -34,6 +34,7 @@ public class Combos : MonoBehaviour {
         if (comboCountdown <= 0)
         {
             attacks.Clear();
+            GetComponent<Animator>().SetTrigger("TimeOut");
         }
 	}
 
@@ -85,6 +86,8 @@ public class Combos : MonoBehaviour {
             result = PlayerBehaviour.AttackType.ComboTwo;
         else if (IsComboThree())
             result = PlayerBehaviour.AttackType.ComboThree;
+        else if (IsComboFour())
+            result = PlayerBehaviour.AttackType.ComboFour;
         return result;
     }
 
@@ -107,9 +110,17 @@ public class Combos : MonoBehaviour {
     private bool IsComboThree()
     {
         return attacks.Count >= 4
-            && attacks[0] == ActionType.Light 
-            && attacks[1] == ActionType.Light 
-            && attacks[2] == ActionType.Heavy 
+            && attacks[0] == ActionType.Light
+            && attacks[1] == ActionType.Light
+            && attacks[2] == ActionType.Heavy
+            && attacks[3] == ActionType.Light;
+    }
+
+    private bool IsComboFour()
+    {
+        return attacks.Count >= 4
+            && attacks[0] == ActionType.Heavy
+            && attacks[1] == ActionType.Heavy
             && attacks[3] == ActionType.Light;
     }
 }

@@ -36,7 +36,8 @@ public class PlayerBehaviour : MonoBehaviour
         Heavy,
         ComboOne,
         ComboTwo,
-        ComboThree
+        ComboThree,
+        ComboFour
     }
 
     public GameObject LightAttackHitBox;
@@ -44,6 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject ComboOneAttackHitBox;
     public GameObject ComboTwoAttackHitBox;
     public GameObject ComboThreeAttackHitBox;
+    public GameObject ComboFourAttackHitBox;
 
     private float _oldY;
 
@@ -128,6 +130,8 @@ public class PlayerBehaviour : MonoBehaviour
             PerformAttack(ComboTwoAttackHitBox, 1);
         else if (attackType == AttackType.ComboThree)
             PerformAttack(ComboThreeAttackHitBox, 1);
+        else if (attackType == AttackType.ComboFour)
+            PerformAttack(ComboFourAttackHitBox, 1);
     }
 
     private void PerformAttack(GameObject hitBox, float deltaX)
