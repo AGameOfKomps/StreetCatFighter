@@ -62,6 +62,8 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
             player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
             hitCountdown = DELAY_HIT;
             GetComponent<Animator>().SetBool("Attack", true);
+            if (!GetComponent<AudioSource>().isPlaying && Random.value > 0.5)
+                    GetComponent<AudioSource>().Play();
         }
         else
         {
@@ -95,7 +97,6 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
-        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }

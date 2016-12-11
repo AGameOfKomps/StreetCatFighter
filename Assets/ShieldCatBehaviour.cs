@@ -72,6 +72,8 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
             player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
             hitCountdown = DELAY_HIT;
             GetComponent<Animator>().SetTrigger("Attack");
+            if (!GetComponent<AudioSource>().isPlaying && Random.value > 0.5)
+                    GetComponent<AudioSource>().Play();
         }
         else
         {
@@ -127,7 +129,6 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Die()
     {
-        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }

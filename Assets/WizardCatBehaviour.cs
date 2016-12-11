@@ -44,6 +44,8 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
             GetComponentInChildren<LaserBehaviour>().Point();
             hitCountdown = DELAY_HIT;
             GetComponent<Animator>().SetTrigger("MoveLaser");
+            if (!GetComponent<AudioSource>().isPlaying && Random.value > 0.5)
+                    GetComponent<AudioSource>().Play();
         }
         else
         {
@@ -78,7 +80,6 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Die()
     {
-        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
