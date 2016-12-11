@@ -20,6 +20,18 @@ public class CameraBehavior : MonoBehaviour {
             Vector2 distance = player.transform.position - transform.position;
             Vector2 delta = distance.normalized * player.GetComponent<PlayerBehaviour>().Speed;
             transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
+
+            if (transform.position.y >= 0.5f)
+                transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+
+            if (transform.position.y <= -0.5f)
+                transform.position = new Vector3(transform.position.x, -0.5f, transform.position.z);
+
+            if (transform.position.x <= -14f)
+                transform.position = new Vector3(-14f, transform.position.y, transform.position.z);
+
+            if (transform.position.x >= 14f)
+                transform.position = new Vector3(14f, transform.position.y, transform.position.z);
         }
         else
         {

@@ -78,6 +78,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Die()
     {
+        PowerUp.GetComponent<ScoreCounter>().AddKill();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }

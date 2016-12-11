@@ -14,14 +14,11 @@ public class EnemySpawnPoints : MonoBehaviour {
     int wcCount = 0;
     int mcCount = 0;
     int scCount = 0;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
+    
 	void Update () {
+        if (GameObject.FindGameObjectWithTag("Boss").GetComponent<BossBehaviour>().Spawned)
+            return;
+
         if (bcCount + wcCount + scCount + mcCount > 2)
             return;
 
