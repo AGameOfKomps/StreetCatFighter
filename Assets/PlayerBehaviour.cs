@@ -52,6 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject ComboTwoAttackHitBox;
     public GameObject ComboThreeAttackHitBox;
     public GameObject ComboFourAttackHitBox;
+    public GameObject GameManeger;
 
     private float _oldY;
 
@@ -171,6 +172,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GodModeCountdown <= 0)
         {
             Energy -= damage;
+            GameManeger.GetComponent<ScoreCounter>().registerHitReceive();
 
             if (Energy <= 0)
                 Die();
