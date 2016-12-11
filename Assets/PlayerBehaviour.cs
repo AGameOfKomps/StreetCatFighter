@@ -27,6 +27,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool B;
     private bool J;
 
+    private bool _inAir;
+
     public enum AttackType
     {
         None,
@@ -43,8 +45,11 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject ComboTwoAttackHitBox;
     public GameObject ComboThreeAttackHitBox;
 
+    private float _oldY;
+
     void Start()
     {
+        RigidBody = GetComponent<Rigidbody2D>();
     }
     
     void Update()
@@ -54,6 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
             GoToLaser();
             return;
         }
+
         H = Input.GetAxis("Horizontal");
         V = Input.GetAxis("Vertical");
 
@@ -71,16 +77,26 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GetComponent<Animator>().SetFloat("Horizontal", H);
             GetComponent<Animator>().SetFloat("Vertical", V);
-            transform.Translate(new Vector2(H, V) * Speed);
+            transform.Translate(new Vector2(H, !_inAir ? V * 0.5f : 0) * Speed);
         }
 
-        if (J)
+        if (!_inAir && J)
+        {
+            _oldY = transform.position.y;
             Jump();
+        }
 
-        if (!J && A)
+        if (_inAir && _oldY > transform.position.y)
+        {
+            RigidBody.gravityScale = 0;
+            RigidBody.velocity = Vector2.zero;
+            _inAir = false;
+        }
+
+        if (!_inAir && A)
             TriggerAttack(AttackType.Light);
 
-        if (!J && B)
+        if (!_inAir && B)
             TriggerAttack(AttackType.Heavy);
 
         TriggerAttack(GetComponent<Combos>().FetchCombo(V, H, B, A, J, false));
@@ -132,7 +148,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Jump()
     {
-
+        RigidBody.gravityScale = 1.2f;
+        _inAir = true;
+        RigidBody.velocity = Vector2.up * 5;
     }
 
     void Die()

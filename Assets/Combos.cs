@@ -90,21 +90,24 @@ public class Combos : MonoBehaviour {
 
     private bool IsComboOne()
     {
-        return attacks[0] == ActionType.Light 
+        return attacks.Count >= 3
+            && attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 
             && attacks[2] == ActionType.Light;
     }
 
     private bool IsComboTwo()
     {
-        return attacks[0] == ActionType.Light 
+        return attacks.Count >= 3
+            && attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 
             && attacks[2] == ActionType.Heavy;
     }
 
     private bool IsComboThree()
     {
-        return attacks[0] == ActionType.Light 
+        return attacks.Count >= 4
+            && attacks[0] == ActionType.Light 
             && attacks[1] == ActionType.Light 
             && attacks[2] == ActionType.Heavy 
             && attacks[3] == ActionType.Light;
