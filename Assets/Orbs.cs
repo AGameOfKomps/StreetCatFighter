@@ -10,8 +10,8 @@ public class Orbs : MonoBehaviour {
 
     public void Appear(Vector2 spawnPoint)
     {
-        //if (Random.value > 0.8f)
-        //{
+        if (Random.value > 0.7f)
+        {
             int powerUp = Random.Range(1, 4);
             if (powerUp == 1)
                 Instantiate(EnergyOrb, spawnPoint, Quaternion.identity);
@@ -19,6 +19,6 @@ public class Orbs : MonoBehaviour {
                 Instantiate(PowerOrb, spawnPoint, Quaternion.identity);
             else
                 Instantiate(SpeedOrb, spawnPoint, Quaternion.identity);
-        //}
+        }
     }
 }
