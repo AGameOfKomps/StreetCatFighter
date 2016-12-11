@@ -61,10 +61,10 @@ public class PlayerBehaviour : MonoBehaviour
         RigidBody = GetComponent<Rigidbody2D>();
         GameManager.GetComponent<ScoreCounter>().HighScore = 0;
     }
-    
+
     void Update()
     {
-        if(LaserOn)
+        if (LaserOn)
         {
             GoToLaser();
             return;
@@ -85,7 +85,7 @@ public class PlayerBehaviour : MonoBehaviour
         else if (H < 0)
             Direction = PlayerDirection.Left;
 
-        if (!A && !B)
+        if (!A && !B && !G)
         {
             GetComponent<Animator>().SetFloat("Horizontal", H);
             GetComponent<Animator>().SetFloat("Vertical", V);
@@ -119,6 +119,15 @@ public class PlayerBehaviour : MonoBehaviour
             TriggerAttack(AttackType.Heavy);
         }
 
+        GetComponent<Animator>().SetBool("Block", G);
+
+        if (G && H != 0)
+        {
+            GetComponent<Animator>().SetFloat("Horizontal", H);
+            GetComponent<Animator>().SetFloat("Vertical", V);
+            DodgeMove();
+        }
+
         TriggerAttack(GetComponent<Combos>().FetchCombo(V, H, B, A, J, false));
 
         if (GodModeCountdown > 0)
@@ -128,6 +137,29 @@ public class PlayerBehaviour : MonoBehaviour
             SuperSpeedCountdown -= Time.deltaTime;
         else
             Speed = INITIAL_SPEED;
+    }
+
+    private void DodgeMove()
+    {
+        var position = new Vector3();
+
+        if (H > 0)
+            position.x = transform.position.x + 3;
+        else if (H < 0)
+            position.x = transform.position.x - 3;
+        else
+            position.x = transform.position.x;
+
+        if (V > 0)
+            position.y = transform.position.y + 2.5f;
+        else if (H < 0)
+            position.y = transform.position.y - 2.5f;
+        else
+            position.y = transform.position.y;
+
+        Vector2 distance = position - transform.position;
+        Vector2 delta = distance.normalized * Speed;
+        transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
     }
 
     private void GoToLaser()
@@ -172,7 +204,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (GodModeCountdown <= 0)
         {
-            Energy -= damage;
+            Energy -= G ? damage * 0.7f : damage;
             GameManager.GetComponent<ScoreCounter>().registerHitReceive();
 
             if (Energy <= 0)
