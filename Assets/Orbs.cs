@@ -6,29 +6,19 @@ public class Orbs : MonoBehaviour {
 
     public GameObject EnergyOrb;
     public GameObject PowerOrb;
+    public GameObject SpeedOrb;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void Appear(Vector2 v)
+    public void Appear(Vector2 spawnPoint)
     {
-        var e = Random.Range(1, 5);
-        for (int i = 0; i < e; i++)
-        {
-            Instantiate(EnergyOrb, v, Quaternion.identity);
-        }
-
-        var p = Random.Range(0, 3);
-        for (int i = 0; i < p; i++)
-        {
-            Instantiate(PowerOrb, v, Quaternion.identity);
-        }
+        //if (Random.value > 0.8f)
+        //{
+            int powerUp = Random.Range(1, 4);
+            if (powerUp == 1)
+                Instantiate(EnergyOrb, spawnPoint, Quaternion.identity);
+            else if (powerUp == 2)
+                Instantiate(PowerOrb, spawnPoint, Quaternion.identity);
+            else
+                Instantiate(SpeedOrb, spawnPoint, Quaternion.identity);
+        //}
     }
 }

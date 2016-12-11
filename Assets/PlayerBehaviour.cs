@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public const float INITIAL_SPEED = 0.5f;
+
     public float Energy = 100;
     public int Lives = 3;
-    public float Speed = 1;
+    public float Speed = INITIAL_SPEED;
 
     public bool LaserOn;
     public PlayerDirection Direction = PlayerDirection.Right;
 
     public Rigidbody2D RigidBody;
+    public int EnergyPowerUpCount = 0;
+    public float GodModeCountdown = 0;
+    public float SuperSpeedCountdown = 0;
 
     public enum PlayerDirection
     {
@@ -106,6 +111,14 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
         TriggerAttack(GetComponent<Combos>().FetchCombo(V, H, B, A, J, false));
+
+        if (GodModeCountdown > 0)
+            GodModeCountdown -= Time.deltaTime;
+
+        if (SuperSpeedCountdown > 0)
+            SuperSpeedCountdown -= Time.deltaTime;
+        else
+            Speed = INITIAL_SPEED;
     }
 
     private void GoToLaser()
@@ -146,10 +159,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ReceiveHit(float damage)
     {
-        Energy -= damage;
+        if (GodModeCountdown <= 0)
+        {
+            Energy -= damage;
 
-        if (Energy <= 0)
-            Die();
+            if (Energy <= 0)
+                Die();
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag.Equals("EnergyOrb"))
+            collider.gameObject.GetComponent<EnergyOrbBehavior>().Consume();
+        else if (collider.tag.Equals("PowerOrb"))
+            collider.gameObject.GetComponent<PowerOrbBehavior>().Consume();
+        else if (collider.tag.Equals("SpeedOrb"))
+            collider.gameObject.GetComponent<SpeedOrbBehavior>().Consume();
     }
 
     void Jump()
