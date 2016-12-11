@@ -71,9 +71,12 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
         {
             player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
             hitCountdown = DELAY_HIT;
+            GetComponent<Animator>().SetTrigger("Attack");
         }
         else
         {
+            if (hitCountdown <= 1.5)
+                GetComponent<Animator>().SetTrigger("Stop");
             hitCountdown -= Time.deltaTime;
         }
     }

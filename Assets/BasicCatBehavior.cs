@@ -61,12 +61,12 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
         {
             player.GetComponent<PlayerBehaviour>().ReceiveHit(Damage);
             hitCountdown = DELAY_HIT;
-            GetComponent<Animator>().SetTrigger("Attack");
+            GetComponent<Animator>().SetBool("Attack", true);
         }
         else
         {
             if (hitCountdown <= 1.5)
-                GetComponent<Animator>().SetTrigger("Stop");
+                GetComponent<Animator>().SetBool("Attack", false);
             hitCountdown -= Time.deltaTime;
         }
     }
