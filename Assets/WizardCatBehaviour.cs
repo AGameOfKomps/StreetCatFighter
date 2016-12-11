@@ -43,9 +43,12 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
             Laser.SetActive(true);
             GetComponentInChildren<LaserBehaviour>().Point();
             hitCountdown = DELAY_HIT;
+            GetComponent<Animator>().SetTrigger("MoveLaser");
         }
         else
         {
+            if (hitCountdown <= 1.5)
+                GetComponent<Animator>().SetTrigger("Laser");
             hitCountdown -= Time.deltaTime;
         }
     }
