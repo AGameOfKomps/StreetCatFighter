@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -231,6 +232,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Die()
     {
+        SceneManager.LoadScene("MainMenu");
         Destroy(this.gameObject);
     }
 }
