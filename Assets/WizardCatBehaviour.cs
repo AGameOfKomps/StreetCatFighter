@@ -25,6 +25,11 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.x >= player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoLeft");
+        else if (transform.position.x < player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoRight");
+
         if (IsOnTarget())
             DeliverHit();
         else

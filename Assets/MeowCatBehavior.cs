@@ -24,7 +24,12 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
 	
 	// Update is called once per frame
 	void Update () {
-		if (IsOnTarget())
+        if (transform.position.x >= player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoLeft");
+        else if (transform.position.x < player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoRight");
+
+        if (IsOnTarget())
             DeliverHit();
         else
             Move();
