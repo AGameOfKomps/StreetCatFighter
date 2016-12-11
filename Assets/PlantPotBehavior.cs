@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlantPotBehavior : MonoBehaviour {
 
-    public float Speed = 0.5f;
+    public float Speed = 0.1f;
     public float Damage = 20;
     public float TargetY = 0;
 

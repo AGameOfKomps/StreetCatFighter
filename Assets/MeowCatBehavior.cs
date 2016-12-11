@@ -58,7 +58,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
 
     void SpawnPlantPot()
     {
-        Vector2 plantPotPosition = new Vector2(player.transform.position.x, Camera.main.orthographicSize);
+        Vector2 plantPotPosition = new Vector2(player.transform.position.x, 0.5f);
         GameObject plantPot = Instantiate(PlantPot, plantPotPosition, Quaternion.identity);
         plantPot.GetComponent<PlantPotBehavior>().TargetY = player.transform.position.y;
     }

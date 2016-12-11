@@ -7,12 +7,16 @@ public class ScoreCounter : MonoBehaviour {
     public const float MULTIPLIER_DELAY = 2;
 
     public int HighScore = 0;
+    public int KillCount = 0;
 
     private float multiplierCountdown;
     private float multiplierElapsed;
 
+    public GameObject Boss;
+
     // Use this for initialization
     void Start () {
+        Boss = GameObject.FindGameObjectWithTag("Boss");
         multiplierCountdown = MULTIPLIER_DELAY;
         multiplierElapsed = 0;
     }
@@ -31,6 +35,9 @@ public class ScoreCounter : MonoBehaviour {
 
             Debug.Log("HighScore multiplier expired " + HighScore);
         }
+
+        if (KillCount > 20)
+            Boss.GetComponent<BossBehaviour>().Spawn();
 	}
 
     public void registerHitDeliver(PlayerBehaviour.AttackType attackType)
@@ -56,5 +63,10 @@ public class ScoreCounter : MonoBehaviour {
         multiplierElapsed = 0;
 
         Debug.Log("HighScore multiplier cut " + HighScore);
+    }
+
+    public void AddKill()
+    {
+        KillCount++;
     }
 }
