@@ -52,13 +52,14 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject ComboTwoAttackHitBox;
     public GameObject ComboThreeAttackHitBox;
     public GameObject ComboFourAttackHitBox;
-    public GameObject GameManeger;
+    public GameObject GameManager;
 
     private float _oldY;
 
     void Start()
     {
         RigidBody = GetComponent<Rigidbody2D>();
+        GameManager.GetComponent<ScoreCounter>().HighScore = 0;
     }
 
     void Update()
@@ -204,7 +205,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (GodModeCountdown <= 0)
         {
             Energy -= G ? damage * 0.7f : damage;
-            GameManeger.GetComponent<ScoreCounter>().registerHitReceive();
+            GameManager.GetComponent<ScoreCounter>().registerHitReceive();
 
             if (Energy <= 0)
                 Die();

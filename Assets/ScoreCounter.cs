@@ -8,14 +8,14 @@ public class ScoreCounter : MonoBehaviour {
 
     public int HighScore = 0;
 
-    private float multiplierCountdown = MULTIPLIER_DELAY;
-    private float multiplierElapsed = 0;
+    private float multiplierCountdown;
+    private float multiplierElapsed;
 
     // Use this for initialization
     void Start () {
-        //multiplierCountdown = MULTIPLIER_DELAY;
-        //multiplierElapsed = 0;
-	}
+        multiplierCountdown = MULTIPLIER_DELAY;
+        multiplierElapsed = 0;
+    }
 	
 	// Update is called once per frame
 	void Update () {
