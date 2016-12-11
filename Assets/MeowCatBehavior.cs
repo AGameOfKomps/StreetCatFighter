@@ -84,6 +84,7 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
     void Die()
     {
         // death animation
+        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }

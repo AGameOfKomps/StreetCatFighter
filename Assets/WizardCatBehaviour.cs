@@ -78,6 +78,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Die()
     {
+        GetComponent<AudioSource>().Play();
         PowerUp.GetComponent<Orbs>().Appear(transform.position);
         Destroy(this.gameObject);
     }
