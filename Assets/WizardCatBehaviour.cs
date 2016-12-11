@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 {
-    public const float DELAY_HIT = 3;
+    public const float DELAY_HIT = 2;
     public const float DEAD_SPACE = 3;
 
     public float Energy = 100;
@@ -55,6 +55,7 @@ public class WizardCatBehaviour : MonoBehaviour, ICatDamageable
 
     void Move()
     {
+        if (Laser.activeSelf) return;
         Vector2 distance = player.transform.position - transform.position;
         Vector2 target = distance - distance.normalized * DEAD_SPACE;
         Vector2 delta = target.normalized * Speed;

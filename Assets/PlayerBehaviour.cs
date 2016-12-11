@@ -156,9 +156,9 @@ public class PlayerBehaviour : MonoBehaviour
         var x = transform.position.x;
         var y = transform.position.y;
         if (Direction == PlayerDirection.Right)
-            LightAttackHitBox.transform.position = new Vector2(x + deltaX, y);
+            hitBox.transform.position = new Vector2(x + deltaX, y);
         else if (Direction == PlayerDirection.Left)
-            LightAttackHitBox.transform.position = new Vector2(x - deltaX, y);
+            hitBox.transform.position = new Vector2(x - deltaX, y);
     }
 
     public void ReceiveHit(float damage)
