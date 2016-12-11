@@ -31,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool A;
     private bool B;
     private bool J;
+    private bool G;
 
     private bool _inAir;
 
@@ -74,6 +75,8 @@ public class PlayerBehaviour : MonoBehaviour
         B = Input.GetButtonDown("Heavy Attack");
 
         J = Input.GetButtonDown("Jump");
+
+        G = Input.GetButton("Block");
 
         if (H > 0)
             Direction = PlayerDirection.Right;
