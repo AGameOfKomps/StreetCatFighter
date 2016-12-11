@@ -48,6 +48,8 @@ public class MeowCatBehavior : MonoBehaviour, ICatDamageable
         {
             if (hitCountdown <= 1.5)
                 GetComponent<Animator>().SetTrigger("Meowing");
+            if (!GetComponent<AudioSource>().isPlaying)
+                GetComponent<AudioSource>().Play();
             hitCountdown -= Time.deltaTime;
         }
     }
