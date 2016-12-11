@@ -29,6 +29,11 @@ public class BossBehaviour : MonoBehaviour {
     }
     void Update()
     {
+        if (transform.position.x >= player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoLeft");
+        else if (transform.position.x < player.transform.position.x)
+            GetComponent<Animator>().SetTrigger("GoRight");
+
         if (!Spawned)
             return;
 
