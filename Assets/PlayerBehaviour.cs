@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public const float INITIAL_SPEED = 0.5f;
+    public const float INITIAL_SPEED = 0.12f;
 
     public float Energy = 100;
     public int Lives = 3;

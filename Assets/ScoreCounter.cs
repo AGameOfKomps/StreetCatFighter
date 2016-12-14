@@ -25,10 +25,19 @@ public class ScoreCounter : MonoBehaviour {
         Boss = GameObject.FindGameObjectWithTag("Boss");
         multiplierCountdown = MULTIPLIER_DELAY;
         multiplierElapsed = 0;
+
+        Score = GameObject.FindGameObjectWithTag("Score");
+        Combo = GameObject.FindGameObjectWithTag("Combo");
+        HitCount = GameObject.FindGameObjectWithTag("HitCount");
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        Score = GameObject.FindGameObjectWithTag("Score");
+        Combo = GameObject.FindGameObjectWithTag("Combo");
+        HitCount = GameObject.FindGameObjectWithTag("HitCount");
+
         if (multiplierCountdown > 0)
         {
             multiplierCountdown -= Time.deltaTime;
