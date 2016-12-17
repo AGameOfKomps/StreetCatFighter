@@ -12,6 +12,7 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     public float Damage = 10;
     public GameObject PowerUp;
 
+    private PlayerBehaviour.PlayerDirection direction;
     private float hitCountdown;
     private bool isOnTarget;
     private GameObject player;
@@ -21,16 +22,13 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
     {
         hitCountdown = DELAY_HIT;
         isOnTarget = false;
+        direction = PlayerBehaviour.PlayerDirection.Left;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x>=player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoLeft");
-        else if(transform.position.x < player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoRight");
         if (IsOnTarget())
             DeliverHit();
         else
@@ -82,6 +80,21 @@ public class BasicCatBehavior : MonoBehaviour, ICatDamageable
         Vector2 distance = player.transform.position - transform.position;
         Vector2 delta = distance.normalized * Speed;
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
+        AdjustDirection();
+    }
+
+    void AdjustDirection()
+    {
+        if (transform.position.x >= player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Right)
+        {
+            GetComponent<Animator>().SetTrigger("GoLeft");
+            direction = PlayerBehaviour.PlayerDirection.Left;
+        }
+        else if (transform.position.x < player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Left)
+        {
+            GetComponent<Animator>().SetTrigger("GoRight");
+            direction = PlayerBehaviour.PlayerDirection.Right;
+        }
     }
 
     public void ReceiveHit(PlayerBehaviour.AttackType attackType)

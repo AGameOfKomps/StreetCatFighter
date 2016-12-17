@@ -6,11 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    public const float INITIAL_SPEED = 0.12f;
-
     public float Energy = 100;
     public int Lives = 3;
-    public float Speed = INITIAL_SPEED;
+    public float Speed = 0.5f;
 
     public bool LaserOn;
     public PlayerDirection Direction = PlayerDirection.Right;
@@ -58,9 +56,11 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameManager;
 
     private float _oldY;
+    private float _oldSpeed;
 
     void Start()
     {
+        _oldSpeed = Speed;
         RigidBody = GetComponent<Rigidbody2D>();
         GameManager.GetComponent<ScoreCounter>().HighScore = 0;
     }
@@ -139,7 +139,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (SuperSpeedCountdown > 0)
             SuperSpeedCountdown -= Time.deltaTime;
         else
-            Speed = INITIAL_SPEED;
+            Speed = _oldSpeed;
     }
 
     private void DodgeMove()

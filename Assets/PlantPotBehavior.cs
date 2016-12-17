@@ -55,6 +55,6 @@ public class PlantPotBehavior : MonoBehaviour {
 
     void Die()
     {
-        DestroyImmediate(this.gameObject, true);
+        Destroy(this.gameObject);
     }
 }

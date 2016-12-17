@@ -10,7 +10,7 @@ public class DealDamage : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag.Equals("Enemy"))
+        if (col.tag.Equals("Enemy") || col.tag.Equals("Boss"))
         {
             col.GetComponent<ICatDamageable>().ReceiveHit(AttackType);
             GameManager.GetComponent<ScoreCounter>().registerHitDeliver(AttackType);

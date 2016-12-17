@@ -8,10 +8,11 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
     public const float DELAY_SHIELD_RESTORE = 3;
 
     public float Energy = 100;
-    public float Speed = 0.1f;
+    public float Speed = 0.07f;
     public float Damage = 5;
     public GameObject PowerUp;
-    
+
+    private PlayerBehaviour.PlayerDirection direction;
     private float hitCountdown;
     private float shieldRestoreCountdown;
     private bool isOnTarget;
@@ -24,16 +25,12 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
         shieldRestoreCountdown = DELAY_SHIELD_RESTORE;
         isOnTarget = false;
         hasShield = true;
+        direction = PlayerBehaviour.PlayerDirection.Left;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.position.x >= player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoLeft");
-        else if (transform.position.x < player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoRight");
-
         if (IsOnTarget())
             DeliverHit();
         else
@@ -68,6 +65,21 @@ public class ShieldCatBehaviour : MonoBehaviour, ICatDamageable
         Vector2 distance = player.transform.position - transform.position;
         Vector2 delta = distance.normalized * Speed;
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
+        AdjustDirection();
+    }
+
+    void AdjustDirection()
+    {
+        if (transform.position.x >= player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Right)
+        {
+            GetComponent<Animator>().SetTrigger("GoLeft");
+            direction = PlayerBehaviour.PlayerDirection.Left;
+        }
+        else if (transform.position.x < player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Left)
+        {
+            GetComponent<Animator>().SetTrigger("GoRight");
+            direction = PlayerBehaviour.PlayerDirection.Right;
+        }
     }
 
     void DeliverHit()

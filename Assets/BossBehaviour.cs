@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BossBehaviour : MonoBehaviour {
+public class BossBehaviour : MonoBehaviour
+{
 
     public const float DELAY_HIT = 3;
     public const float DELAY_SHIELD_RESTORE = 3;
 
     public float Energy = 500;
-    public float Speed = 0.1f;
+    public float Speed = 0.05f;
     public float Damage = 5;
     public GameObject PowerUp;
 
     public bool Spawned = false;
 
+    private PlayerBehaviour.PlayerDirection direction;
     private float hitCountdown;
     private float shieldRestoreCountdown;
     private bool isOnTarget;
@@ -26,20 +28,17 @@ public class BossBehaviour : MonoBehaviour {
     public GameObject Bar;
     public GameObject Canvas;
 
-    void Start() {
+    void Start()
+    {
         hitCountdown = DELAY_HIT;
         shieldRestoreCountdown = DELAY_SHIELD_RESTORE;
         isOnTarget = false;
         hasShield = true;
+        direction = PlayerBehaviour.PlayerDirection.Left;
         player = GameObject.FindGameObjectWithTag("Player");
     }
     void Update()
     {
-        if (transform.position.x >= player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoLeft");
-        else if (transform.position.x < player.transform.position.x)
-            GetComponent<Animator>().SetTrigger("GoRight");
-
         if (!Spawned)
             return;
 
@@ -84,6 +83,21 @@ public class BossBehaviour : MonoBehaviour {
         Vector2 distance = player.transform.position - transform.position;
         Vector2 delta = distance.normalized * Speed;
         transform.Translate(delta.sqrMagnitude > distance.sqrMagnitude ? distance : delta);
+        AdjustDirection();
+    }
+
+    void AdjustDirection()
+    {
+        if (transform.position.x >= player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Right)
+        {
+            GetComponent<Animator>().SetTrigger("GoLeft");
+            direction = PlayerBehaviour.PlayerDirection.Left;
+        }
+        else if (transform.position.x < player.transform.position.x && direction == PlayerBehaviour.PlayerDirection.Left)
+        {
+            GetComponent<Animator>().SetTrigger("GoRight");
+            direction = PlayerBehaviour.PlayerDirection.Right;
+        }
     }
     void DeliverHit()
     {
@@ -94,7 +108,7 @@ public class BossBehaviour : MonoBehaviour {
             hitCountdown = DELAY_HIT;
             GetComponent<Animator>().SetBool("Attack", true);
             if (!GetComponent<AudioSource>().isPlaying && Random.value > 0.5)
-                    GetComponent<AudioSource>().Play();
+                GetComponent<AudioSource>().Play();
         }
         else
         {
@@ -141,5 +155,5 @@ public class BossBehaviour : MonoBehaviour {
         SceneManager.LoadScene("MainMenu");
         Destroy(this.gameObject);
     }
-    
+
 }

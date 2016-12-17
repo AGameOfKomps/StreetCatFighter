@@ -25,18 +25,10 @@ public class ScoreCounter : MonoBehaviour {
         Boss = GameObject.FindGameObjectWithTag("Boss");
         multiplierCountdown = MULTIPLIER_DELAY;
         multiplierElapsed = 0;
-
-        Score = GameObject.FindGameObjectWithTag("Score");
-        Combo = GameObject.FindGameObjectWithTag("Combo");
-        HitCount = GameObject.FindGameObjectWithTag("HitCount");
     }
 	
 	// Update is called once per frame
 	void Update () {
-
-        Score = GameObject.FindGameObjectWithTag("Score");
-        Combo = GameObject.FindGameObjectWithTag("Combo");
-        HitCount = GameObject.FindGameObjectWithTag("HitCount");
 
         if (multiplierCountdown > 0)
         {
@@ -57,6 +49,10 @@ public class ScoreCounter : MonoBehaviour {
 
     public void registerHitDeliver(PlayerBehaviour.AttackType attackType)
     {
+        Score = GameObject.FindGameObjectWithTag("Score");
+        Combo = GameObject.FindGameObjectWithTag("Combo");
+        HitCount = GameObject.FindGameObjectWithTag("HitCount");
+
         multiplierCountdown = MULTIPLIER_DELAY;
         int score = attackType == PlayerBehaviour.AttackType.Light ? 200
             : attackType == PlayerBehaviour.AttackType.Heavy ? 500
@@ -79,6 +75,10 @@ public class ScoreCounter : MonoBehaviour {
 
     public void registerHitReceive()
     {
+        Score = GameObject.FindGameObjectWithTag("Score");
+        Combo = GameObject.FindGameObjectWithTag("Combo");
+        HitCount = GameObject.FindGameObjectWithTag("HitCount");
+
         multiplierCountdown = 0;
         multiplierElapsed = 0;
         ComboHits = 0;
