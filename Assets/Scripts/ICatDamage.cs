@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICatDamageable
 {
-    void ReceiveHit(PlayerBehaviour.AttackType attType);
-}
+    void ReceiveHit(PlayerBehaviour.AttackType a);
+};

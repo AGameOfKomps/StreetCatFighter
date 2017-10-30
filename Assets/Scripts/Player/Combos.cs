@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Combos : MonoBehaviour {
 
+    // TODO: Include combos (set COMBO_DELAY to 0.9f)
     public const int MAX_COMBOS = 5;
     public const float COMBO_DELAY = 0.9f;
 
@@ -121,6 +122,6 @@ public class Combos : MonoBehaviour {
         return attacks.Count >= 4
             && attacks[0] == ActionType.Heavy
             && attacks[1] == ActionType.Heavy
-            && attacks[3] == ActionType.Light;
+            && attacks[2] == ActionType.Light;
     }
 }

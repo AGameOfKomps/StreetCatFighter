@@ -12,7 +12,7 @@ public class DealDamage : MonoBehaviour
     {
         if (col.tag.Equals("Enemy") || col.tag.Equals("Boss"))
         {
-            col.GetComponent<ICatDamageable>().ReceiveHit(AttackType);
+            col.GetComponent<HitReceiver>().ReceiveHit(AttackType);
             GameManager.GetComponent<ScoreCounter>().registerHitDeliver(AttackType);
             gameObject.SetActive(false);
         }
